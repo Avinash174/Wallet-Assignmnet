@@ -1,62 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
+import '../controller/wallet_controller.dart';
 
-class UserProfilePage extends StatefulWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+class UserProfilePage extends StatelessWidget {
+  final WalletController controller = Get.find();
 
-  @override
-  State<UserProfilePage> createState() => _UserProfilePageState();
-}
-
-class _UserProfilePageState extends State<UserProfilePage> {
-  final nameController = TextEditingController();
-  final mobileController = TextEditingController();
-
-  Future<void> _saveProfile() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('userName', nameController.text);
-    await prefs.setString('userMobile', mobileController.text);
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Profile saved successfully')));
-  }
-
-  Future<void> _loadProfile() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      nameController.text = prefs.getString('userName') ?? '';
-      mobileController.text = prefs.getString('userMobile') ?? '';
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadProfile();
-  }
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Profile')),
+      appBar: AppBar(title: Text("User Profile")),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
+              decoration: InputDecoration(labelText: 'Name'),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 10),
             TextField(
               controller: mobileController,
-              decoration: const InputDecoration(labelText: 'Mobile Number'),
+              decoration: InputDecoration(labelText: 'Mobile Number'),
               keyboardType: TextInputType.phone,
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _saveProfile,
-              child: const Text('Save Profile'),
+              onPressed: () {
+                if (nameController.text.isNotEmpty &&
+                    mobileController.text.isNotEmpty) {
+                  controller.saveProfile(
+                    nameController.text,
+                    mobileController.text,
+                  );
+                  Get.snackbar("Success", "Profile saved");
+                  Get.back();
+                } else {
+                  Get.snackbar("Error", "Please enter all fields");
+                }
+              },
+              child: Text('Save Profile'),
             ),
           ],
         ),

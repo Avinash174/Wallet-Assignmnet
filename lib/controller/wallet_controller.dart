@@ -1,83 +1,86 @@
 import 'package:get/get.dart';
-import 'package:walletapp/model/transaction_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
 class WalletController extends GetxController {
   var name = ''.obs;
-  var mobile = ''.obs;
+  var contact = ''.obs;
+
   var balance = 0.0.obs;
-  var transactions = <TransactionModel>[].obs;
+  var transactions = <Map<String, dynamic>>[].obs;
   var isDark = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadData();
+    loadProfile();
   }
 
-  void registerUser(String userName, String userMobile) async {
-    name.value = userName;
-    mobile.value = userMobile;
+  // Save user profile to shared preferences
+  void saveProfile(String username, String mobile) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', jsonEncode({
-      'name': userName,
-      'mobile': userMobile,
-    }));
+    await prefs.setString('name', username);
+    await prefs.setString('contact', mobile);
+    name.value = username;
+    contact.value = mobile;
   }
 
+  // Load user profile from shared preferences
+  void loadProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    name.value = prefs.getString('name') ?? '';
+    contact.value = prefs.getString('contact') ?? '';
+  }
+
+  // Register user with validation
+  void registerUser(String username, String mobile) {
+    if (username.trim().isEmpty || username.length < 3) {
+      Get.snackbar("Error", "Please enter a valid name");
+      return;
+    }
+
+    if (!RegExp(r'^[0-9]{10}$').hasMatch(mobile)) {
+      Get.snackbar("Error", "Mobile number must be 10 digits");
+      return;
+    }
+
+    saveProfile(username, mobile);
+    Get.back();
+    Get.snackbar("Success", "User profile saved");
+  }
+
+  // Add money to wallet
   void addMoney(double amount) {
     balance.value += amount;
-    transactions.insert(0, TransactionModel(
-      date: DateTime.now(),
-      type: 'Add',
-      amount: amount,
-    ));
-    saveTransactions();
+    transactions.add({
+      'type': 'Add',
+      'amount': amount,
+      'note': '',
+      'date': DateTime.now().toString(),
+    });
   }
 
+  // Spend money from wallet
   void spendMoney(double amount, String note) {
     if (amount <= balance.value) {
       balance.value -= amount;
-      transactions.insert(0, TransactionModel(
-        date: DateTime.now(),
-        type: 'Spend',
-        amount: amount,
-        note: note,
-      ));
-      saveTransactions();
+      transactions.add({
+        'type': 'Spend',
+        'amount': amount,
+        'note': note,
+        'date': DateTime.now().toString(),
+      });
+    } else {
+      Get.snackbar("Insufficient Balance", "You don't have enough funds");
     }
   }
 
-  void clearTransactions() async {
+  // Clear transaction history
+  void clearTransactions() {
     transactions.clear();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('transactions');
   }
 
-  void toggleTheme() => isDark.value = !isDark.value;
-
-  void saveTransactions() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final list = transactions.map((e) => e.toJson()).toList();
-    await prefs.setString('transactions', jsonEncode(list));
-  }
-
-  void loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final user = prefs.getString('user');
-    if (user != null) {
-      final map = jsonDecode(user);
-      name.value = map['name'];
-      mobile.value = map['mobile'];
-    }
-
-    final trans = prefs.getString('transactions');
-    if (trans != null) {
-      final list = jsonDecode(trans);
-      transactions.value = List<TransactionModel>.from(
-        list.map((x) => TransactionModel.fromJson(x)),
-      );
-    }
+  // Toggle dark/light theme
+  void toggleTheme() {
+    isDark.value = !isDark.value;
   }
 }

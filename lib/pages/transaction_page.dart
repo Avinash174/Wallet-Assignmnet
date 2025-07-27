@@ -45,11 +45,21 @@ class TransactionPage extends StatelessWidget {
                 itemCount: controller.transactions.length,
                 itemBuilder: (_, index) {
                   final tx = controller.transactions[index];
+                  final String type = tx['type'] ?? 'Unknown';
+                  final double amount = tx['amount'] ?? 0.0;
+                  final String note = tx['note'] ?? '';
+                  final String dateStr = tx['date'] ?? '';
+                  DateTime? date;
+
+                  try {
+                    date = DateTime.parse(dateStr);
+                  } catch (_) {
+                    date = DateTime.now();
+                  }
+
                   return ListTile(
-                    title: Text("${tx.type} ₹${tx.amount}"),
-                    subtitle: Text(
-                      "${dateFormat.format(tx.date)} | ${tx.note}",
-                    ),
+                    title: Text("$type ₹$amount"),
+                    subtitle: Text("${dateFormat.format(date)} | $note"),
                   );
                 },
               ),

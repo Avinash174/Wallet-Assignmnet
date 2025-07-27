@@ -23,11 +23,12 @@ class RegistrationPage extends StatelessWidget {
             TextField(
               controller: mobileCtrl,
               decoration: InputDecoration(labelText: "Mobile"),
+              keyboardType: TextInputType.phone,
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                controller.registerUser(nameCtrl.text, mobileCtrl.text);
+                controller.saveProfile(nameCtrl.text, mobileCtrl.text);
                 Get.offAll(() => HomePage());
               },
               child: Text("Register"),
