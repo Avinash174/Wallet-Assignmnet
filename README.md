@@ -1,16 +1,47 @@
-# walletapp
+# 💸 WalletApp
 
-A new Flutter project.
+A clean and simple **Flutter wallet management app** that allows users to create a profile, manage wallet balance, add/spend money, and view transaction history. Built using **MVC architecture** and **GetX** for smooth and reactive state management.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+- 👤 **User Profile Creation**
+  - Simple form to save name and mobile number using `shared_preferences`
+  - Displays user info on Home screen
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 💰 **Wallet Management**
+  - Add or spend money using modal dialogs
+  - Real-time balance update
+  - Stored data persists between app launches
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 📜 **Transaction History**
+  - See list of past transactions (add/spend)
+  - Shows a friendly message if there are no transactions
+
+- 📱 **Clean UI**
+  - **Curved Bottom Navigation Bar**
+  - Responsive and minimal interface
+
+---
+
+## 🛠️ Tech Stack
+
+- **Flutter**
+- **Dart**
+- **GetX** – state management and navigation
+- **Shared Preferences** – for local storage
+- **MVC Architecture**
+- **curved_navigation_bar** package
+
+---
+
+## 🚀 Getting Started
+
+To run the project locally:
+
+```bash
+git clone https://github.com/your-username/walletapp.git
+cd walletapp
+flutter pub get
+flutter run
