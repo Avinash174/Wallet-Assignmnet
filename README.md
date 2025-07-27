@@ -2,7 +2,7 @@
 
 A simple and elegant **Flutter Wallet Management App** to manage your personal finances with ease. This app allows users to register a profile, add/spend money, and track their transactions—all stored locally using shared preferences.
 
-> 🔗 GitHub Repository: [Avinash174/Wallet-Assignmnet](https://github.com/Avinash174/Wallet-Assignmnet.git)
+> 🔗 GitHub Repository: [Avinash174/WalletApp](https://github.com/Avinash174/WalletApp.git)
 
 ---
 
