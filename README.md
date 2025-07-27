@@ -1,47 +1,58 @@
 # 💸 WalletApp
 
-A clean and simple **Flutter wallet management app** that allows users to create a profile, manage wallet balance, add/spend money, and view transaction history. Built using **MVC architecture** and **GetX** for smooth and reactive state management.
+A simple and elegant **Flutter Wallet Management App** to manage your personal finances with ease. This app allows users to register a profile, add/spend money, and track their transactions—all stored locally using shared preferences.
+
+> 🔗 GitHub Repository: [Avinash174/Wallet-Assignmnet](https://github.com/Avinash174/Wallet-Assignmnet.git)
 
 ---
 
-## ✨ Features
+## 🚀 Features
 
-- 👤 **User Profile Creation**
-  - Simple form to save name and mobile number using `shared_preferences`
-  - Displays user info on Home screen
+- 👤 **User Profile**
+  - Register with name and mobile number
+  - Persist user data locally with `shared_preferences`
 
-- 💰 **Wallet Management**
-  - Add or spend money using modal dialogs
-  - Real-time balance update
-  - Stored data persists between app launches
+- 💰 **Wallet System**
+  - Add money to wallet
+  - Spend money from wallet
+  - View real-time wallet balance
 
-- 📜 **Transaction History**
-  - See list of past transactions (add/spend)
-  - Shows a friendly message if there are no transactions
+- 📜 **Transactions**
+  - Track add/spend operations
+  - View transaction history
+  - Friendly message when no transactions available
 
-- 📱 **Clean UI**
-  - **Curved Bottom Navigation Bar**
-  - Responsive and minimal interface
+- 📱 **UI/UX**
+  - Curved bottom navigation bar for sleek navigation
+  - Responsive design
+  - MVC architecture for separation of concerns
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Flutter**
-- **Dart**
-- **GetX** – state management and navigation
-- **Shared Preferences** – for local storage
-- **MVC Architecture**
-- **curved_navigation_bar** package
+- **Flutter** + **Dart**
+- **GetX** – for reactive state management & routing
+- **shared_preferences** – for persistent local storage
+- **curved_navigation_bar** – for smooth bottom navigation
+- **MVC architecture** – for structured codebase
 
 ---
 
-## 🚀 Getting Started
+## 🧾 Project Summary
 
-To run the project locally:
+This app demonstrates:
+- Local user registration and wallet tracking system
+- Persistent storage with Flutter
+- Clean navigation with bottom nav and GetX
+- MVC-based project structure for scalable development
+
+---
+
+## 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/walletapp.git
-cd walletapp
+git clone https://github.com/Avinash174/Wallet-Assignmnet.git
+cd Wallet-Assignmnet
 flutter pub get
 flutter run
