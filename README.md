@@ -53,6 +53,6 @@ This app demonstrates:
 
 ```bash
 git clone https://github.com/Avinash174/Wallet-Assignmnet.git
-cd Wallet-Assignmnet
+cd Wallet-App
 flutter pub get
 flutter run
