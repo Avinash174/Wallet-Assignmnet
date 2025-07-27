@@ -101,7 +101,7 @@ class HomePage extends StatelessWidget {
               double amount = double.tryParse(amountController.text) ?? 0;
               if (amount > 0) {
                 controller.addMoney(amount);
-                Get.back(); // ✅ close dialog
+                Get.back();
               } else {
                 Get.snackbar("Error", "Enter valid amount");
               }
@@ -142,7 +142,7 @@ class HomePage extends StatelessWidget {
               String note = noteController.text.trim();
               if (amount > 0) {
                 controller.spendMoney(amount, note);
-                Get.back(); // ✅ close dialog
+                Get.back();
               } else {
                 Get.snackbar("Error", "Enter valid amount");
               }
@@ -190,7 +190,7 @@ class HomePage extends StatelessWidget {
                 Get.snackbar("Error", "Enter valid 10-digit mobile number");
               } else {
                 controller.saveProfile(name, contact);
-                Get.back(); // ✅ close dialog
+                Get.back();
               }
             },
             child: const Text("Save"),
